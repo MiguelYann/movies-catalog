@@ -5,6 +5,7 @@ import fr.learn.microservices.moviescatalogservice.infrastructure.BootstrapRatin
 import fr.learn.microservices.moviescatalogservice.infrastructure.Movie;
 import fr.learn.microservices.moviescatalogservice.infrastructure.Rating;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/movies")
 public class MovieController {
 
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
+
+    @Autowired
+    public MovieController(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
     @GetMapping("/{userId}")
     public List<MovieItem> getMovies(@PathVariable("userId") String userId) {
