@@ -1,12 +1,12 @@
 package fr.learn.microservices.moviescatalogservice.domain.models;
 
 public class MovieItem {
-    
+
     private final String name;
     private final String description;
-    private final String rating;
+    private final int rating;
 
-    public MovieItem(final String name, final String description, final String rating) {
+    public MovieItem(final String name, final String description, final int rating) {
         this.name = name;
         this.description = description;
         this.rating = rating;
@@ -20,7 +20,7 @@ public class MovieItem {
         return description;
     }
 
-    public String getRating() {
+    public int getRating() {
         return rating;
     }
 }
