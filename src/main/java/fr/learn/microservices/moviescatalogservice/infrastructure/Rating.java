@@ -1,9 +1,12 @@
 package fr.learn.microservices.moviescatalogservice.infrastructure;
 
 public class Rating {
-    private final String movieId;
-    private final int count;
+    private  String movieId;
+    private  int count;
 
+    public Rating() {
+
+    }
     public Rating(String movieId, int count) {
         this.movieId = movieId;
         this.count = count;

@@ -6,12 +6,15 @@ import fr.learn.microservices.moviescatalogservice.infrastructure.Movie;
 import fr.learn.microservices.moviescatalogservice.infrastructure.Rating;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,11 +33,15 @@ public class MovieController {
     @GetMapping("/{userId}")
     public List<MovieItem> getMovies(@PathVariable("userId") String userId) {
 
-        log.info("Id of user is {}", userId);
+        log.info("Call rating API for retrieve ratings of {} user ", userId);
 
-        List<Rating> ratingList = BootstrapRating.ratingList;
+        List<Rating> ratingList = restTemplate.exchange("http://localhost:8083/api/ratings/users/" + userId,
+                HttpMethod.GET, null,
+                new ParameterizedTypeReference<List<Rating>>() {
+                }).getBody();
 
-        log.info("Call Service info, to retrieved information about movie with ratings {}", ratingList);
+
+        log.info("Call Service infos, to retrieved information about movie with ratings {}", ratingList);
 
         return ratingList.stream()
                 .map(rating -> {
