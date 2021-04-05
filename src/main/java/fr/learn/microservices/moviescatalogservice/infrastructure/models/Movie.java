@@ -1,4 +1,4 @@
-package fr.learn.microservices.moviescatalogservice.infrastructure;
+package fr.learn.microservices.moviescatalogservice.infrastructure.models;
 
 public class Movie {
 
